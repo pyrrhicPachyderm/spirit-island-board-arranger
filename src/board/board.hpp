@@ -21,4 +21,10 @@ inline bool operator!=(const Board &lhs, const Board &rhs) {
 	return !(lhs == rhs);
 }
 
+inline bool doBoardsCollide(const Board &lhs, const Board &rhs) {
+	return lhs.inland == rhs.inland || lhs.inland == rhs.coast || lhs.inland == rhs.ocean
+		|| lhs.coast == rhs.inland || lhs.coast == rhs.coast || lhs.coast == rhs.ocean
+		|| lhs.ocean == rhs.inland || lhs.ocean == rhs.coast || lhs.ocean == rhs.ocean;
+}
+
 #endif
