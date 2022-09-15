@@ -8,6 +8,8 @@ class Board {
 		Triangle inland;
 		Triangle coast;
 		Triangle ocean;
+		//NB: With respect to coast, ocean must be anticlockwise of inland.
+		//i.e. If coast.getNeighbours()[i] == inland, then coast.getNeighbours()[(i+1)%3] == ocean.
 		
 		Board(Triangle inland, Triangle coast, Triangle ocean):
 			inland(inland), coast(coast), ocean(ocean) {};
