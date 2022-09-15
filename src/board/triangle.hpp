@@ -19,6 +19,8 @@ class Triangle {
 			return a + b + c == 2;
 		}
 		
+		//NB: Neighbours are always given in anti-clockwise order.
+		//NB: t.getNeighbours()[i].getNeighbours()[i] == t, for any i in [0,2].
 		std::array<Triangle, 3> getNeighbours() {
 			if(isPointUp()) {
 				return {
