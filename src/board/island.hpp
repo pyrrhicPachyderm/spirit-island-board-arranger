@@ -25,6 +25,13 @@ class Island {
 		};
 		
 		void canonicaliseWithoutRotation();
+		
+		bool doesBoardCollide(const Board &board) const {
+			for(size_t i = 0; i < boards.size(); i++) {
+				if(doBoardsCollide(board, boards[i])) return true;
+			}
+			return false;
+		}
 	public:
 		//Rearranges the board, by translation, rotation, and sorting the vector, into a canonical form.
 		void canonicalise();
