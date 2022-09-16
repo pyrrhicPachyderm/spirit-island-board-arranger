@@ -5,6 +5,7 @@
 
 //Using the "three lane" implementation outlined in:
 //https://www.boristhebrave.com/2021/05/23/triangle-grids
+//Except that (0,0,0) is a triangle (pointing down) to make rotation easier.
 
 class Triangle {
 	public:
@@ -16,7 +17,7 @@ class Triangle {
 			a(a), b(b), c(c) {};
 		
 		bool isPointUp() {
-			return a + b + c == 2;
+			return a + b + c == 1;
 		}
 		
 		//NB: Neighbours are always given in anti-clockwise order.
