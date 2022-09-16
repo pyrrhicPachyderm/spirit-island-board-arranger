@@ -12,6 +12,9 @@ class Board {
 		//NB: With respect to coast, ocean must be anticlockwise of inland.
 		//i.e. If coast.getNeighbours()[i] == inland, then coast.getNeighbours()[(i+1)%3] == ocean.
 		
+		Board():
+			inland(Triangle(0,0,1)), coast(Triangle(0,0,0)), ocean(Triangle(1,0,0)) {};
+		
 		Board(Triangle inland, Triangle coast, Triangle ocean):
 			inland(inland), coast(coast), ocean(ocean) {};
 	protected:

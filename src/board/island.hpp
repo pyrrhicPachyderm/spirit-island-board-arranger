@@ -9,6 +9,9 @@ class Island {
 	public:
 		std::vector<Board> boards;
 		
+		Island():
+			boards({Board()}) {};
+		
 		Island(std::vector<Board> boards):
 			boards(boards) {};
 	protected:
