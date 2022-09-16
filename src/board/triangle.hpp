@@ -61,4 +61,26 @@ inline bool operator!=(const Triangle &lhs, const Triangle &rhs) {
 	return !(lhs == rhs);
 }
 
+//Impose a total order on triangles.
+//It means nothing, but will be used in canonicalising islands.
+inline bool operator<(const Triangle &lhs, const Triangle &rhs) {
+	if(lhs.a < rhs.a) return true;
+	if(lhs.a > rhs.a) return false;
+	if(lhs.b < rhs.b) return true;
+	if(lhs.b > rhs.b) return false;
+	return lhs.c < rhs.c;
+}
+
+inline bool operator<=(const Triangle &lhs, const Triangle &rhs) {
+	return lhs < rhs || lhs == rhs;
+}
+
+inline bool operator>(const Triangle &lhs, const Triangle &rhs) {
+	return !(lhs <= rhs);
+}
+
+inline bool operator>=(const Triangle &lhs, const Triangle &rhs) {
+	return !(lhs < rhs);
+}
+
 #endif

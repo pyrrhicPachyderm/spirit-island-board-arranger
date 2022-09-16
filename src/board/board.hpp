@@ -89,4 +89,26 @@ inline bool doBoardsCollide(const Board &lhs, const Board &rhs) {
 		|| lhs.ocean == rhs.inland || lhs.ocean == rhs.coast || lhs.ocean == rhs.ocean;
 }
 
+//Impose a total order on boards.
+//It means nothing, but will be used in canonicalising islands.
+inline bool operator<(const Board &lhs, const Board &rhs) {
+	if(lhs.inland < rhs.inland) return true;
+	if(lhs.inland > rhs.inland) return false;
+	if(lhs.coast < rhs.coast) return true;
+	if(lhs.coast > rhs.coast) return false;
+	return lhs.ocean < rhs.ocean;
+}
+
+inline bool operator<=(const Board &lhs, const Board &rhs) {
+	return lhs < rhs || lhs == rhs;
+}
+
+inline bool operator>(const Board &lhs, const Board &rhs) {
+	return !(lhs <= rhs);
+}
+
+inline bool operator>=(const Board &lhs, const Board &rhs) {
+	return !(lhs < rhs);
+}
+
 #endif
