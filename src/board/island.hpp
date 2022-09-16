@@ -2,6 +2,7 @@
 #define ISLAND_HPP
 
 #include <vector>
+#include <algorithm>
 #include "board.hpp"
 
 class Island {
@@ -22,6 +23,11 @@ class Island {
 		void rotateCCW() {
 			for(size_t i = 0; i < boards.size(); i++) boards[i].rotateCCW();
 		};
+		
+		void canonicaliseWithoutRotation();
+	public:
+		//Rearranges the board, by translation, rotation, and sorting the vector, into a canonical form.
+		void canonicalise();
 };
 
 inline bool operator==(const Island &lhs, const Island &rhs) {
@@ -58,6 +64,27 @@ inline bool operator>(const Island &lhs, const Island &rhs) {
 
 inline bool operator>=(const Island &lhs, const Island &rhs) {
 	return !(lhs < rhs);
+}
+
+//Canonicalisation functions defined here, as they use the comparison functions.
+void Island::canonicaliseWithoutRotation() {
+	std::sort(boards.begin(), boards.end());
+	Triangle refTri = boards[0].inland;
+	translate(-refTri.a, -refTri.b);
+}
+
+void Island::canonicalise() {
+	canonicaliseWithoutRotation();
+	
+	Island copyCW = *this;
+	copyCW.rotateCW();
+	copyCW.canonicaliseWithoutRotation();
+	Island copyCCW = *this;
+	copyCCW.rotateCCW();
+	copyCCW.canonicaliseWithoutRotation();
+	
+	if(copyCW < *this) boards = copyCW.boards;
+	if(copyCCW < *this) boards = copyCCW.boards;
 }
 
 #endif
