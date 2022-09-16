@@ -35,6 +35,20 @@ class Island {
 	public:
 		//Rearranges the board, by translation, rotation, and sorting the vector, into a canonical form.
 		void canonicalise();
+		
+		//Returns all the boards (not necessarily unique) that can be obtained by adding one board to this board.
+		std::vector<Island> expand() const {
+			std::vector<Island> result;
+			for(size_t i = 0; i < boards.size(); i++) {
+				std::array<Board, 9> newBoards = boards[i].getNeighbours();
+				for(size_t j = 0; j < newBoards.size(); j++) {
+					if(doesBoardCollide(newBoards[j])) continue;
+					result.push_back(*this);
+					result.back().boards.push_back(newBoards[j]);
+				}
+			}
+			return result;
+		}
 };
 
 inline bool operator==(const Island &lhs, const Island &rhs) {
