@@ -10,6 +10,14 @@ class Island {
 		
 		Island(std::vector<Board> boards):
 			boards(boards) {};
+	protected:
+		//Rotates an island about (0,0,0).
+		void rotateCW() {
+			for(size_t i = 0; i < boards.size(); i++) boards[i].rotateCW();
+		};
+		void rotateCCW() {
+			for(size_t i = 0; i < boards.size(); i++) boards[i].rotateCCW();
+		};
 };
 
 inline bool operator==(const Island &lhs, const Island &rhs) {

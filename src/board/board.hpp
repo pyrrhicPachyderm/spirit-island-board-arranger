@@ -61,6 +61,18 @@ class Board {
 				neighbours2[0], neighbours2[1], neighbours2[2]
 			};
 		}
+		
+		//Rotates a board about (0,0,0).
+		void rotateCW() {
+			inland.rotateCW();
+			coast.rotateCW();
+			ocean.rotateCW();
+		};
+		void rotateCCW() {
+			inland.rotateCCW();
+			coast.rotateCCW();
+			ocean.rotateCCW();
+		};
 };
 
 inline bool operator==(const Board &lhs, const Board &rhs) {

@@ -37,6 +37,20 @@ class Triangle {
 				};
 			}
 		}
+		
+		//Rotates a triangle about (0,0,0).
+		void rotateCW() {
+			int tmp = a;
+			a = c;
+			c = b;
+			b = tmp;
+		};
+		void rotateCCW() {
+			int tmp = a;
+			a = b;
+			b = c;
+			c = tmp;
+		};
 };
 
 inline bool operator==(const Triangle &lhs, const Triangle &rhs) {
