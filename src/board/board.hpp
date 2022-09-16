@@ -62,6 +62,12 @@ class Board {
 			};
 		}
 		
+		void translate(int aOffset, int bOffset) {
+			inland.translate(aOffset, bOffset);
+			coast.translate(aOffset, bOffset);
+			ocean.translate(aOffset, bOffset);
+		}
+		
 		//Rotates a board about (0,0,0).
 		void rotateCW() {
 			inland.rotateCW();

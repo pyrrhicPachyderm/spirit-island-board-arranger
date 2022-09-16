@@ -11,6 +11,10 @@ class Island {
 		Island(std::vector<Board> boards):
 			boards(boards) {};
 	protected:
+		void translate(int aOffset, int bOffset) {
+			for(size_t i = 0; i < boards.size(); i++) boards[i].translate(aOffset, bOffset);
+		};
+		
 		//Rotates an island about (0,0,0).
 		void rotateCW() {
 			for(size_t i = 0; i < boards.size(); i++) boards[i].rotateCW();

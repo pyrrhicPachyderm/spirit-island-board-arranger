@@ -38,6 +38,15 @@ class Triangle {
 			}
 		}
 		
+		void translate(int aOffset, int bOffset) {
+			//To avoid flipping triangles or creating invalid triangles:
+			//aOffset + bOffset + cOffset = 0.
+			int cOffset = - aOffset - bOffset;
+			a += aOffset;
+			b += bOffset;
+			c += cOffset;
+		}
+		
 		//Rotates a triangle about (0,0,0).
 		void rotateCW() {
 			int tmp = a;
