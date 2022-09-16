@@ -16,13 +16,13 @@ class Triangle {
 		Triangle(int a, int b, int c):
 			a(a), b(b), c(c) {};
 		
-		bool isPointUp() {
+		bool isPointUp() const {
 			return a + b + c == 1;
 		}
 		
 		//NB: Neighbours are always given in anti-clockwise order.
 		//NB: t.getNeighbours()[i].getNeighbours()[i] == t, for any i in [0,2].
-		std::array<Triangle, 3> getNeighbours() {
+		std::array<Triangle, 3> getNeighbours() const {
 			if(isPointUp()) {
 				return {
 					Triangle(a-1, b, c),

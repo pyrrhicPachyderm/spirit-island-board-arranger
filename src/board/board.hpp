@@ -40,7 +40,7 @@ class Board {
 			return {getNeighbourOverEdge0(tri, edge), getNeighbourOverEdge1(tri, edge), getNeighbourOverEdge2(tri, edge)};
 		}
 		
-		std::array<std::pair<Triangle, Direction>, 3> getOpenEdges() {
+		std::array<std::pair<Triangle, Direction>, 3> getOpenEdges() const {
 			std::array<Triangle, 3> inlandNeighbours = inland.getNeighbours();
 			Direction inlandToCoastEdge = inlandNeighbours[0] == coast ? 0 : (inlandNeighbours[1] == coast ? 1 : 2);
 			return {
@@ -50,7 +50,7 @@ class Board {
 			};
 		}
 	public:
-		std::array<Board, 9> getNeighbours() {
+		std::array<Board, 9> getNeighbours() const {
 			std::array<std::pair<Triangle, Direction>, 3> openEdges = getOpenEdges();
 			std::array<Board, 3> neighbours0 = getNeighboursOverEdge(openEdges[0].first, openEdges[0].second);
 			std::array<Board, 3> neighbours1 = getNeighboursOverEdge(openEdges[1].first, openEdges[1].second);
