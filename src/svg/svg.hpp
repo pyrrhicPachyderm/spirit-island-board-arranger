@@ -49,8 +49,6 @@ class SVGElement {
 		}
 };
 
-const std::string SVGElement::INDENT_STRING = "\t";
-
 class SVG {
 	protected:
 		SVGElement element;
