@@ -51,4 +51,45 @@ class SVGElement {
 
 const std::string SVGElement::INDENT_STRING = "\t";
 
+class SVG {
+	protected:
+		SVGElement element;
+	public:
+		
+		void setViewbox(double x, double y, double width, double height) {
+			std::string dimensionString = std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(width) + " " + std::to_string(height);
+			element.setAttribute("viewBox", dimensionString);
+		}
+		
+		void setDisplayDimensions(std::string width, std::string height) {
+			element.setAttribute("width", width);
+			element.setAttribute("height", height);
+		}
+		
+		SVG():
+			element(SVGElement("svg")) {};
+		SVG(double width, double height, std::string displayWidth, std::string displayHeight):
+			SVG()
+		{
+			setViewbox(0, 0, width, height);
+			setDisplayDimensions(displayWidth, displayHeight);
+		};
+		SVG(double x, double y, double width, double height, std::string displayWidth, std::string displayHeight):
+			SVG()
+		{
+			setViewbox(x, y, width, height);
+			setDisplayDimensions(displayWidth, displayHeight);
+		};
+		
+		void addElement(SVGElement child) {
+			element.addChild(child);
+		}
+		
+		std::string asString() const {
+			std::string result = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+			result += element.asString(0);
+			return result;
+		}
+};
+
 #endif
