@@ -17,9 +17,9 @@ class Board {
 		
 		Board(Triangle inland, Triangle coast, Triangle ocean):
 			inland(inland), coast(coast), ocean(ocean) {};
-	protected:
-		typedef uint8_t Direction;
 		
+		typedef uint8_t Direction;
+	protected:
 		static Board getNeighbourOverEdge0(const Triangle &tri, Direction edge) {
 			Triangle newCoast = tri.getNeighbours()[edge];
 			Triangle newInland = newCoast.getNeighbours()[(edge+1)%3];
