@@ -9,13 +9,10 @@ void Island::canonicaliseWithoutRotation() {
 void Island::canonicalise() {
 	canonicaliseWithoutRotation();
 	
-	Island copyCW = *this;
-	copyCW.rotateCW();
-	copyCW.canonicaliseWithoutRotation();
-	Island copyCCW = *this;
-	copyCCW.rotateCCW();
-	copyCCW.canonicaliseWithoutRotation();
-	
-	if(copyCW < *this) boards = copyCW.boards;
-	if(copyCCW < *this) boards = copyCCW.boards;
+	Island copy = *this;
+	for(size_t i = 0; i < 5; i++) {
+		copy.rotateCW();
+		copy.canonicaliseWithoutRotation();
+		if(copy < *this) boards = copy.boards;
+	}
 }

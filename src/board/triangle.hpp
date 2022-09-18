@@ -5,7 +5,6 @@
 
 //Using the "three lane" implementation outlined in:
 //https://www.boristhebrave.com/2021/05/23/triangle-grids
-//Except that (0,0,0) is a triangle (pointing down) to make rotation easier.
 
 class Triangle {
 	public:
@@ -17,7 +16,7 @@ class Triangle {
 			a(a), b(b), c(c) {};
 		
 		bool isPointUp() const {
-			return a + b + c == 1;
+			return a + b + c == 2;
 		}
 		
 		//NB: Neighbours are always given in anti-clockwise order.
@@ -49,16 +48,18 @@ class Triangle {
 		
 		//Rotates a triangle about (0,0,0).
 		void rotateCW() {
-			int tmp = a;
-			a = c;
-			c = b;
-			b = tmp;
+			if(isPointUp()) {
+				*this = Triangle((a + b - c) / 2, (b + c - a) / 2, (c + a - b) / 2);
+			} else {
+				*this = Triangle(a + b, b + c, c + a);
+			}
 		};
 		void rotateCCW() {
-			int tmp = a;
-			a = b;
-			b = c;
-			c = tmp;
+			if(isPointUp()) {
+				*this = Triangle((a + c - b) / 2, (b + a - c) / 2, (c + b - a) / 2);
+			} else {
+				*this = Triangle(a + c, b + a, c + b);
+			}
 		};
 };
 

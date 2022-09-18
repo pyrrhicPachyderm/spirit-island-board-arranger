@@ -13,7 +13,7 @@ class Board {
 		//i.e. If coast.getNeighbours()[i] == inland, then coast.getNeighbours()[(i+1)%3] == ocean.
 		
 		Board():
-			inland(Triangle(0,0,1)), coast(Triangle(0,0,0)), ocean(Triangle(1,0,0)) {};
+			inland(Triangle(0,1,1)), coast(Triangle(0,1,0)), ocean(Triangle(1,1,0)) {};
 		
 		Board(Triangle inland, Triangle coast, Triangle ocean):
 			inland(inland), coast(coast), ocean(ocean) {};
