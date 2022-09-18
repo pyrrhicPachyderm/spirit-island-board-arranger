@@ -20,6 +20,19 @@ class Board {
 		
 		typedef uint8_t Direction;
 	protected:
+		bool isValid() const {
+			std::array<Triangle, 3> coastNeighbours = coast.getNeighbours();
+			Direction inlandDirection = 3;
+			Direction oceanDirection = 3;
+			for(size_t i = 0; i < coastNeighbours.size(); i++) {
+				if(coastNeighbours[i] == inland) inlandDirection = i;
+				if(coastNeighbours[i] == ocean) oceanDirection = i;
+			}
+			if(inlandDirection >= 3 || oceanDirection >= 3) return false;
+			if(oceanDirection != (inlandDirection+1)%3) return false;
+			return true;
+		}
+		
 		static Board getNeighbourOverEdge0(const Triangle &tri, Direction edge) {
 			Triangle newCoast = tri.getNeighbours()[edge];
 			Triangle newInland = newCoast.getNeighbours()[(edge+1)%3];
