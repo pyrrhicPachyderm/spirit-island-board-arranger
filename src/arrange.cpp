@@ -1,24 +1,56 @@
 #include <stdio.h>
+#include <fstream>
+#include <filesystem>
 #include "board/island.hpp"
+#include "draw.hpp"
 
-#define NUM_MANDATORY_ARGS 1
+#define MIN_NUM_ARGS 1
+#define MAX_NUM_ARGS 2
 
 //Prints the usage spiel to stderr.
 static void printUsage(int argc, const char **argv) {
 	//Making of use of concatenated string literals in the following:
-	fprintf(stderr, "Usage: %s MAX_NUM_BOARDS\n\n"
+	fprintf(stderr, "Usage: %s MAX_NUM_BOARDS [OUTPUT_DIR]\n\n"
 		"\tFinds all island layouts with up to MAX_NUM_BOARDS.\n"
+		"\tIf given OUTPUT_DIR, prints each layout as an SVG.\n"
 		,
 		argv[0]
 	);
 }
 
+std::string paddedNumString(size_t num, size_t maxNum) {
+	size_t width = std::to_string(maxNum).size();
+	std::string result = std::to_string(num);
+	if(result.size() < width) result.insert(0, width - result.size(), '0');
+	return result;
+}
+
+void printBoardSVGs(std::vector<std::vector<Island>> islands, std::string outputDir) {
+	std::filesystem::create_directory(outputDir);
+	for(size_t numBoards = 1; numBoards < islands.size(); numBoards++) {
+		std::string dirName = paddedNumString(numBoards, islands.size()-1) + "-board";
+		std::filesystem::path dirPath = std::filesystem::path(outputDir);
+		dirPath /= std::filesystem::path(dirName);
+		std::filesystem::create_directory(dirPath);
+		for(size_t i = 0; i < islands[numBoards].size(); i++) {
+			std::string fileName = paddedNumString(i, islands[numBoards].size()-1) + ".svg";
+			std::filesystem::path filePath = dirPath / std::filesystem::path(fileName);
+			std::ofstream fileStream = std::ofstream(filePath);
+			
+			SVG svg = drawIsland(islands[numBoards][i]);
+			fileStream << svg.asString();
+		}
+	}
+}
+
 int main(int argc, const char **argv) {
-	if(argc-1 != NUM_MANDATORY_ARGS) {
+	if(argc-1 < MIN_NUM_ARGS || argc-1 > MAX_NUM_ARGS) {
 		printUsage(argc, argv);
 		exit(1);
 	}
 	size_t maxNumBoards = strtoll(argv[1], NULL, 0);
+	std::string outputDir;
+	if(argc-1 >= 2) outputDir = argv[2];
 	
 	std::vector<std::vector<Island>> islands = {{}, {Island()}};
 	
@@ -37,6 +69,8 @@ int main(int argc, const char **argv) {
 		
 		printf("%lu: %lu\n", numBoards, islands[numBoards].size());
 	}
+	
+	if(!outputDir.empty()) printBoardSVGs(islands, outputDir);
 	
 	return 0;
 }
