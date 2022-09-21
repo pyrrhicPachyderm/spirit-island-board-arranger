@@ -27,14 +27,14 @@ std::string getKorrentIsland(const Island &island) {
 }
 
 std::string getKorrentIslandsOfSize(const std::vector<std::vector<Island>> islands) {
-	std::string result = "{";
+	std::string result = "{\n";
 	for(size_t numBoards = 1; numBoards < islands.size(); numBoards++) {
-		result += std::to_string(numBoards) + ":[";
+		result += "\t" + std::to_string(numBoards) + ":[\n";
 		for(size_t i = 0; i < islands[numBoards].size(); i++) {
-			result += getKorrentIsland(islands[numBoards][i]) + ",";
+			result += "\t\t" + getKorrentIsland(islands[numBoards][i]) + ",\n";
 		}
-		result += "],";
+		result += "\t],\n";
 	}
-	result += "}";
+	result += "}\n";
 	return result;
 }
