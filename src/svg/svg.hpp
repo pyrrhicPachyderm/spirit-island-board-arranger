@@ -65,7 +65,10 @@ class SVG {
 		}
 		
 		SVG():
-			element(SVGElement("svg")) {};
+			element(SVGElement("svg"))
+		{
+			element.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+		};
 		SVG(double width, double height, std::string displayWidth, std::string displayHeight):
 			SVG()
 		{
